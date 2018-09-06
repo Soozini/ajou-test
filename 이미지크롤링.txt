@@ -1,0 +1,29 @@
+﻿from icrawler.builtin import GoogleImageCrawler
+import os
+
+
+download_dir = "E://image_file/child2"
+if not os.path.exists(download_dir):
+    os.makedirs(download_dir)
+    print("make directory")
+
+google_crawler = GoogleImageCrawler(
+    feeder_threads=1,
+    parser_threads=1,
+    downloader_threads=4,
+    storage={'root_dir':download_dir})
+filters = dict(size='large',
+              license='commercial,modify',
+              date=((2017,1,1),(2017,12,31)))
+
+
+google_crawler.crawl(keyword='child',
+                     filters={'date':((2017,1,1),(2017,6,30))},
+                     max_num=100,
+                     file_idx_offset=0)
+
+
+google_crawler.crawl(keyword='child',
+                     filters={'date':((2017,7,1),(2017,12,31))},
+                     max_num=100,
+                     file_idx_offset=0)
